@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" media="screen" href="/~d/styles/rss2full.xsl"?>
+<?xml-stylesheet type="text/css" media="screen" href="http://feeds.reuters.com/~d/styles/itemcontent.css"?>
+<rss xmlns:feedburner="http://rssnamespace.org/feedburner/ext/1.0" version="2.0">
+	<channel>
+		<title>RSS Title</title>
+		<link>RSS Link</link>
+		<description>RSS description</description>
+		<image>
+			<title>RSS Image</title>
+			<width>120</width>
+			<height>35</height>
+			<link>http://www.reuters.com</link>
+			<url>http://www.reuters.com/resources_v2/images/reuters125.png</url>
+		</image>
+		<language>en-us</language>
+		<lastBuildDate>Sat, 22 Nov 2016 04:55:02 -0500</lastBuildDate>
+		<copyright>RSS copyright</copyright>
+		<item>
+				<title>Item 1 title</title>
+				<description>Item 1 description</description>
+				<link>http://item_1.link/</link>
+		    <guid isPermaLink="false">item_001</guid>
+		    <category>Item 1 All</category>
+				<pubDate>Sat, 1 Nov 2016 04:08:20 -0500</pubDate>
+		</item>
+		<item>
+				<title>Item 2 title</title>
+				<description>Item 2 description</description>
+				<link>http://item_2.link/</link>
+		    <guid isPermaLink="false">item_002</guid>
+		    <category>Item 2 All</category>
+				<pubDate>Sat, 2 Nov 2016 04:08:20 -0500</pubDate>
+		</item>
+	</channel>
+</rss>

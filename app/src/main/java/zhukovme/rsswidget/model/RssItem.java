@@ -1,7 +1,5 @@
 package zhukovme.rsswidget.model;
 
-import java.util.Date;
-
 /**
  * Created by Michael Zhukov on 19/11/2016
  */
@@ -10,11 +8,14 @@ public class RssItem {
     private String guid;
     private String title;
     private String description;
-    private Date pubDate;
+    private long pubDate;
     private String category;
     private String link;
 
-    public RssItem(String guid, String title, String description, Date pubDate, String category, String link) {
+    public RssItem() {
+    }
+
+    public RssItem(String guid, String title, String description, long pubDate, String category, String link) {
         this.guid = guid;
         this.title = title;
         this.description = description;
@@ -47,11 +48,11 @@ public class RssItem {
         this.description = description;
     }
 
-    public Date getPubDate() {
+    public long getPubDate() {
         return pubDate;
     }
 
-    public void setPubDate(Date pubDate) {
+    public void setPubDate(long pubDate) {
         this.pubDate = pubDate;
     }
 
@@ -81,7 +82,7 @@ public class RssItem {
         if (guid != null ? !guid.equals(rssItem.guid) : rssItem.guid != null) return false;
         if (title != null ? !title.equals(rssItem.title) : rssItem.title != null) return false;
         if (description != null ? !description.equals(rssItem.description) : rssItem.description != null) return false;
-        if (pubDate != null ? !pubDate.equals(rssItem.pubDate) : rssItem.pubDate != null) return false;
+        if (pubDate != rssItem.pubDate) return false;
         if (category != null ? !category.equals(rssItem.category) : rssItem.category != null) return false;
         return link != null ? link.equals(rssItem.link) : rssItem.link == null;
 
@@ -92,7 +93,7 @@ public class RssItem {
         int result = guid != null ? guid.hashCode() : 0;
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (pubDate != null ? pubDate.hashCode() : 0);
+        result = 31 * result + (int) (pubDate ^ (pubDate >>> 32));
         result = 31 * result + (category != null ? category.hashCode() : 0);
         result = 31 * result + (link != null ? link.hashCode() : 0);
         return result;
