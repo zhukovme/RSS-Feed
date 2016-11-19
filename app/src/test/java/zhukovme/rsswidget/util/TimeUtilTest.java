@@ -41,10 +41,24 @@ public class TimeUtilTest {
     }
 
     @Test
-    public void testParseWrongPattern() throws Exception {
+    public void testParseWrong() throws Exception {
         String testDate = "Sat, 19/11/2016 01:37:28";
         long expected = 0L;
         long actual = timeUtil.parse(testDate);
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testParseNull() throws Exception {
+        long expected = 0L;
+        long actual = timeUtil.parse(null);
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testParseEmpty() throws Exception {
+        long expected = 0L;
+        long actual = timeUtil.parse("");
         Assert.assertEquals(expected, actual);
     }
 }

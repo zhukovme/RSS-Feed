@@ -2,7 +2,6 @@ package zhukovme.rsswidget.util;
 
 import android.util.Log;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -33,7 +32,7 @@ public class TimeUtil {
         long time = 0L;
         try {
             time = sdf.parse(date).getTime();
-        } catch (ParseException e) {
+        } catch (Exception e) {
             Log.e(TAG, "Parsing date error", e);
         }
         return time;
