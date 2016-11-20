@@ -1,4 +1,8 @@
 <resources>
-    <dimen name="widget_min_width">100dp</dimen>
-    <dimen name="widget_min_height">100dp</dimen>
+    <dimen name="widget_min_width">250dp</dimen>
+    <dimen name="widget_min_height">250dp</dimen>
+
+    <dimen name="small_margin">5dp</dimen>
+    <dimen name="medium_margin">10dp</dimen>
+    <dimen name="default_margin">16dp</dimen>
 </resources>

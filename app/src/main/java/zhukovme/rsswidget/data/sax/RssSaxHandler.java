@@ -1,4 +1,4 @@
-package zhukovme.rsswidget.sax;
+package zhukovme.rsswidget.data.sax;
 
 import android.util.Log;
 
@@ -8,14 +8,14 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import java.util.Stack;
 
-import zhukovme.rsswidget.model.RssFeed;
-import zhukovme.rsswidget.model.RssItem;
+import zhukovme.rsswidget.data.model.RssFeed;
+import zhukovme.rsswidget.data.model.RssItem;
 import zhukovme.rsswidget.util.TimeUtil;
 
 /**
  * Created by Michael Zhukov on 19/11/2016
  */
-class RssSaxHandler extends DefaultHandler {
+public class RssSaxHandler extends DefaultHandler {
 
     private static final String TAG = RssSaxHandler.class.getName();
 

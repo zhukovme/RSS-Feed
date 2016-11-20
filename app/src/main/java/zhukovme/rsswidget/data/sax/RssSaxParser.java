@@ -1,4 +1,4 @@
-package zhukovme.rsswidget.sax;
+package zhukovme.rsswidget.data.sax;
 
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -12,7 +12,8 @@ import java.net.URL;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import zhukovme.rsswidget.model.RssFeed;
+import zhukovme.rsswidget.data.model.RssFeed;
+import zhukovme.rsswidget.util.TimeUtil;
 
 /**
  * Created by Michael Zhukov on 19/11/2016
@@ -23,14 +24,13 @@ public class RssSaxParser {
 
     private RssSaxHandler handler;
 
-    public RssSaxParser(RssSaxHandler handler) {
-        this.handler = handler;
+    public RssSaxParser(TimeUtil timeUtil) {
+        this.handler = new RssSaxHandler(timeUtil);
     }
 
     @Nullable
     public RssFeed parse(URL url) throws SAXException, IOException {
         return parse(url.openStream());
-
     }
 
     @Nullable

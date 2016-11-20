@@ -1,4 +1,4 @@
-package zhukovme.rsswidget.model;
+package zhukovme.rsswidget.data.model;
 
 import java.util.ArrayList;
 import java.util.List;

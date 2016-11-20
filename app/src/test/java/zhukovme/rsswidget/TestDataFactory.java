@@ -2,20 +2,15 @@ package zhukovme.rsswidget;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TimeZone;
 
-import zhukovme.rsswidget.model.RssFeed;
-import zhukovme.rsswidget.model.RssItem;
+import zhukovme.rsswidget.data.model.RssFeed;
+import zhukovme.rsswidget.data.model.RssItem;
 
 /**
  * Created by Michael Zhukov on 19/11/2016
  */
 
 public class TestDataFactory {
-
-    public static TimeZone getMyTimeZone() {
-        return TimeZone.getTimeZone("GMT+3:00");
-    }
 
     public static RssFeed getTestOkRssFeed() {
         RssItem rssItem1 = new RssItem(

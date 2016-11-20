@@ -1,4 +1,4 @@
-package zhukovme.rsswidget.sax;
+package zhukovme.rsswidget.data.sax;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -12,7 +12,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 import zhukovme.rsswidget.TestDataFactory;
-import zhukovme.rsswidget.model.RssFeed;
+import zhukovme.rsswidget.data.model.RssFeed;
 import zhukovme.rsswidget.util.TimeUtil;
 
 import static org.mockito.Matchers.anyString;
@@ -31,8 +31,7 @@ public class RssParserTest {
     @Before
     public void setUp() throws Exception {
         when(timeUtil.parse(anyString())).thenReturn(0L);
-        RssSaxHandler handler = new RssSaxHandler(timeUtil);
-        parser = new RssSaxParser(handler);
+        parser = new RssSaxParser(timeUtil);
     }
 
     @After

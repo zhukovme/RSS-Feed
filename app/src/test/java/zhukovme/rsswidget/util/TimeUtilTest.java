@@ -5,8 +5,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import zhukovme.rsswidget.TestDataFactory;
-
 /**
  * Created by Michael Zhukov on 19/11/2016
  */
@@ -16,7 +14,7 @@ public class TimeUtilTest {
 
     @Before
     public void setUp() throws Exception {
-        timeUtil = new TimeUtil(TestDataFactory.getMyTimeZone());
+        timeUtil = new TimeUtil();
     }
 
     @After

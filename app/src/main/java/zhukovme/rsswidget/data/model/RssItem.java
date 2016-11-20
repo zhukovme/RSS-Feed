@@ -1,9 +1,11 @@
-package zhukovme.rsswidget.model;
+package zhukovme.rsswidget.data.model;
+
+import android.support.annotation.NonNull;
 
 /**
  * Created by Michael Zhukov on 19/11/2016
  */
-public class RssItem {
+public class RssItem implements Comparable<RssItem> {
 
     private String guid;
     private String title;
@@ -109,5 +111,10 @@ public class RssItem {
                 ", category='" + category + '\'' +
                 ", link='" + link + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(@NonNull RssItem rssItem) {
+        return ((Long) rssItem.getPubDate()).compareTo(pubDate);
     }
 }
