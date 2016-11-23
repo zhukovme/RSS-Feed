@@ -3,11 +3,13 @@ package zhukovme.rsswidget.widget;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
+import android.view.View;
 import android.widget.RemoteViews;
 
 import zhukovme.rsswidget.R;
@@ -22,9 +24,11 @@ public class RssFeedWidgetProvider extends AppWidgetProvider {
 
     private static final String TAG = RssFeedWidgetProvider.class.getName();
 
-    public static final String ACTION_OPEN_URL = "zhukovme.rsswidget.widget.action_open_url";
     private static final String ACTION_SETTINGS = "zhukovme.rsswidget.widget.action_settings";
     private static final String ACTION_SYNC = "zhukovme.rsswidget.widget.action_sync";
+    private static final String ACTION_APPLY = "zhukovme.rsswidget.widget.action_apply";
+    public static final String ACTION_OPEN_URL = "zhukovme.rsswidget.widget.action_open_url";
+
     public static final String EXTRA_URL = "zhukovme.rsswidget.widget.extra_url";
 
     @Override
@@ -36,7 +40,13 @@ public class RssFeedWidgetProvider extends AppWidgetProvider {
         } else if (ACTION_SYNC.equals(intent.getAction())) {
             DataFactory.getRssWidgetUpdateTask(context).execute();
         } else if (ACTION_SETTINGS.equals(intent.getAction())) {
-            // settings
+            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_rss_feed);
+            showSettings(views);
+            update(context, views);
+        } else if (ACTION_APPLY.equals(intent.getAction())) {
+            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_rss_feed);
+            showRssItems(views);
+            update(context, views);
         }
         super.onReceive(context, intent);
     }
@@ -58,9 +68,12 @@ public class RssFeedWidgetProvider extends AppWidgetProvider {
             views.setPendingIntentTemplate(R.id.lv_rss_feed, getPendingSelfIntent(context, ACTION_OPEN_URL));
             views.setOnClickPendingIntent(R.id.iv_settings, getPendingSelfIntent(context, ACTION_SETTINGS));
             views.setOnClickPendingIntent(R.id.iv_sync, getPendingSelfIntent(context, ACTION_SYNC));
+            views.setOnClickPendingIntent(R.id.iv_apply, getPendingSelfIntent(context, ACTION_APPLY));
 
             views.setEmptyView(R.id.lv_rss_feed, R.id.tv_empty_here);
             views.setTextViewText(R.id.tv_rss_title, rssFeedRepository.getRssTitle());
+            views.setTextViewText(R.id.tv_rss_url, rssFeedRepository.getRssUrl());
+            views.setTextViewText(R.id.tv_rss_description, rssFeedRepository.getRssDescription());
 
             appWidgetManager.updateAppWidget(widgetId, views);
         }
@@ -91,5 +104,29 @@ public class RssFeedWidgetProvider extends AppWidgetProvider {
             views.setRemoteAdapter(widgetId, R.id.lv_rss_feed, intent);
         }
         return views;
+    }
+
+    private void update(Context context, RemoteViews views) {
+        ComponentName myWidget = new ComponentName(context, RssFeedWidgetProvider.class);
+        AppWidgetManager manager = AppWidgetManager.getInstance(context);
+        manager.updateAppWidget(myWidget, views);
+    }
+
+    private void showSettings(RemoteViews views) {
+        views.setViewVisibility(R.id.iv_settings, View.GONE);
+        views.setViewVisibility(R.id.iv_sync, View.GONE);
+        views.setViewVisibility(R.id.iv_apply, View.VISIBLE);
+
+        views.setViewVisibility(R.id.rl_rss_items, View.GONE);
+        views.setViewVisibility(R.id.ll_settings, View.VISIBLE);
+    }
+
+    private void showRssItems(RemoteViews views) {
+        views.setViewVisibility(R.id.iv_settings, View.VISIBLE);
+        views.setViewVisibility(R.id.iv_sync, View.VISIBLE);
+        views.setViewVisibility(R.id.iv_apply, View.GONE);
+
+        views.setViewVisibility(R.id.rl_rss_items, View.VISIBLE);
+        views.setViewVisibility(R.id.ll_settings, View.GONE);
     }
 }

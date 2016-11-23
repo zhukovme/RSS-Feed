@@ -52,6 +52,6 @@ public class PreferenceHelper {
     }
 
     public String getRssDescription() {
-        return prefs.getString(RSS_DESCRIPTION_PREF, "");
+        return prefs.getString(RSS_DESCRIPTION_PREF, "No description");
     }
 }

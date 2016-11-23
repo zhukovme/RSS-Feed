@@ -6,32 +6,45 @@
     android:background="@color/black_transparent_10">
 
     <RelativeLayout
-        android:id="@+id/ll_bottom_menu"
+        android:id="@+id/ll_top_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/iv_sync"
+        <LinearLayout
+            android:id="@+id/ll_manage_buttons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_sync_white_24dp"
-            android:background="@drawable/bg_image_button"
+            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:padding="@dimen/default_margin"/>
+            android:layout_alignParentEnd="true">
 
-        <ImageButton
-            android:id="@+id/iv_settings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_settings_white_24dp"
-            android:background="@drawable/bg_image_button"
-            android:layout_toLeftOf="@id/iv_sync"
-            android:layout_toStartOf="@id/iv_sync"
-            android:layout_centerVertical="true"
-            android:padding="@dimen/default_margin"/>
+            <ImageView
+                android:id="@+id/iv_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_settings_white_24dp"
+                android:background="@drawable/bg_image_button"
+                android:padding="@dimen/default_margin"/>
+
+            <ImageView
+                android:id="@+id/iv_sync"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_sync_white_24dp"
+                android:background="@drawable/bg_image_button"
+                android:padding="@dimen/default_margin"/>
+
+            <ImageView
+                android:id="@+id/iv_apply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_check_white_24dp"
+                android:background="@drawable/bg_image_button"
+                android:padding="@dimen/default_margin"
+                android:visibility="gone"/>
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_rss_title"
@@ -39,27 +52,73 @@
             android:layout_height="wrap_content"
             android:maxLines="2"
             android:ellipsize="end"
-            android:layout_toLeftOf="@id/iv_settings"
-            android:layout_toStartOf="@id/iv_settings"
+            android:layout_toLeftOf="@id/ll_manage_buttons"
+            android:layout_toStartOf="@id/ll_manage_buttons"
             android:layout_margin="@dimen/small_margin"
             style="@style/Base.TextAppearance.AppCompat.Medium"/>
 
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/lv_rss_feed"
+    <RelativeLayout
+        android:id="@+id/rl_rss_items"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/ll_bottom_menu"/>
+        android:layout_below="@id/ll_top_menu">
 
-    <TextView
-        android:id="@+id/tv_empty_here"
+        <ListView
+            android:id="@+id/lv_rss_feed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/tv_empty_here"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/empty_here"
+            android:gravity="center"
+            android:visibility="gone"
+            style="@style/Base.TextAppearance.AppCompat.Medium"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_settings"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/empty_here"
-        android:gravity="center"
-        android:visibility="gone"
-        android:layout_below="@id/ll_bottom_menu"
-        style="@style/Base.TextAppearance.AppCompat.Medium"/>
+        android:layout_below="@id/ll_top_menu"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/small_margin"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_rss_url_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rss_url_title"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/small_margin"/>
+
+        <TextView
+            android:id="@+id/tv_rss_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|top"
+            android:layout_marginBottom="@dimen/medium_margin"/>
+
+        <TextView
+            android:id="@+id/tv_rss_description_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/description_title"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/small_margin"/>
+
+        <TextView
+            android:id="@+id/tv_rss_description"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|top"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

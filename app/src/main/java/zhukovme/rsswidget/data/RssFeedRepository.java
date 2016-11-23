@@ -45,6 +45,10 @@ public class RssFeedRepository {
         return prefHelper.getRssTitle();
     }
 
+    public String getRssDescription() {
+        return prefHelper.getRssDescription();
+    }
+
     public void saveRssFeed(RssFeed rssFeed) {
         prefHelper.setRssTitle(rssFeed.getTitle());
         prefHelper.setRssDescription(rssFeed.getDescription());
