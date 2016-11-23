@@ -1,11 +1,8 @@
-package zhukovme.rsswidget.data.sax;
+package zhukovme.rsswidget.sax;
 
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import org.xml.sax.SAXException;
-
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
@@ -29,12 +26,17 @@ public class RssSaxParser {
     }
 
     @Nullable
-    public RssFeed parse(URL url) throws SAXException, IOException {
-        return parse(url.openStream());
+    public RssFeed parse(URL url) {
+        try {
+            return parse(url.openStream());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Nullable
-    public RssFeed parse(InputStream stream) throws SAXException, IOException {
+    public RssFeed parse(InputStream stream) {
         try {
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser parser = factory.newSAXParser();

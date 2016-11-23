@@ -1,4 +1,4 @@
-package zhukovme.rsswidget.data.sax;
+package zhukovme.rsswidget.sax;
 
 import android.util.Log;
 

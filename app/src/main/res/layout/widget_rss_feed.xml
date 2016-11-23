@@ -11,21 +11,23 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageView
+        <ImageButton
             android:id="@+id/iv_sync"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_sync_white_24dp"
+            android:background="@drawable/bg_image_button"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:padding="@dimen/default_margin"/>
 
-        <ImageView
+        <ImageButton
             android:id="@+id/iv_settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_settings_white_24dp"
+            android:background="@drawable/bg_image_button"
             android:layout_toLeftOf="@id/iv_sync"
             android:layout_toStartOf="@id/iv_sync"
             android:layout_centerVertical="true"
@@ -49,5 +51,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/ll_bottom_menu"/>
+
+    <TextView
+        android:id="@+id/tv_empty_here"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/empty_here"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_below="@id/ll_bottom_menu"
+        style="@style/Base.TextAppearance.AppCompat.Medium"/>
 
 </RelativeLayout>

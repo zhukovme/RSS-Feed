@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RSS Widget</string>
+    <string name="empty_here">Empty here</string>
+    <string name="et_hint_rss_url">RSS URL</string>
 </resources>

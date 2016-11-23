@@ -1,4 +1,4 @@
-package zhukovme.rsswidget.ui.widget;
+package zhukovme.rsswidget.widget;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 import zhukovme.rsswidget.R;
-import zhukovme.rsswidget.data.DataManager;
+import zhukovme.rsswidget.data.RssFeedRepository;
 import zhukovme.rsswidget.data.model.RssItem;
 import zhukovme.rsswidget.util.StringUtil;
 import zhukovme.rsswidget.util.TimeUtil;
@@ -24,16 +24,16 @@ public class RssFeedWidgetDataProvider implements RemoteViewsService.RemoteViews
     private static final String TAG = RssFeedWidgetDataProvider.class.getName();
 
     private Context context;
-    private DataManager dataManager;
+    private RssFeedRepository rssFeedRepository;
     private TimeUtil timeUtil;
     private StringUtil stringUtil;
 
     private List<RssItem> rssItems;
 
-    public RssFeedWidgetDataProvider(Context context, Intent intent, DataManager dataManager, TimeUtil timeUtil,
-                                     StringUtil stringUtil) {
+    public RssFeedWidgetDataProvider(Context context, Intent intent, RssFeedRepository rssFeedRepository,
+                                     TimeUtil timeUtil, StringUtil stringUtil) {
         this.context = context;
-        this.dataManager = dataManager;
+        this.rssFeedRepository = rssFeedRepository;
         this.timeUtil = timeUtil;
         this.stringUtil = stringUtil;
 
@@ -43,14 +43,14 @@ public class RssFeedWidgetDataProvider implements RemoteViewsService.RemoteViews
     @Override
     public void onCreate() {
         Log.e(TAG, "onCreate");
-        rssItems = dataManager.loadRssItems();
+        rssItems = rssFeedRepository.loadRssItems();
         Collections.sort(rssItems);
     }
 
     @Override
     public void onDataSetChanged() {
         Log.e(TAG, "onDataSetChanged");
-        rssItems = dataManager.loadRssItems();
+        rssItems = rssFeedRepository.loadRssItems();
         Collections.sort(rssItems);
     }
 

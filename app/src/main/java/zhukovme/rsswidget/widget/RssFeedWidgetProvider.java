@@ -1,4 +1,4 @@
-package zhukovme.rsswidget.ui.widget;
+package zhukovme.rsswidget.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -12,7 +12,8 @@ import android.widget.RemoteViews;
 
 import zhukovme.rsswidget.R;
 import zhukovme.rsswidget.data.DataFactory;
-import zhukovme.rsswidget.data.PreferenceHelper;
+import zhukovme.rsswidget.data.RssFeedRepository;
+import zhukovme.rsswidget.data.database.DatabaseHelperFactory;
 
 /**
  * Created by Michael Zhukov on 19/11/2016
@@ -21,10 +22,10 @@ public class RssFeedWidgetProvider extends AppWidgetProvider {
 
     private static final String TAG = RssFeedWidgetProvider.class.getName();
 
-    public static final String ACTION_OPEN_URL = "zhukovme.rsswidget.ui.widget.action_open_url";
-    private static final String ACTION_SETTINGS = "zhukovme.rsswidget.ui.widget.action_settings";
-    private static final String ACTION_SYNC = "zhukovme.rsswidget.ui.widget.action_sync";
-    public static final String EXTRA_URL = "zhukovme.rsswidget.ui.widget.extra_url";
+    public static final String ACTION_OPEN_URL = "zhukovme.rsswidget.widget.action_open_url";
+    private static final String ACTION_SETTINGS = "zhukovme.rsswidget.widget.action_settings";
+    private static final String ACTION_SYNC = "zhukovme.rsswidget.widget.action_sync";
+    public static final String EXTRA_URL = "zhukovme.rsswidget.widget.extra_url";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -33,7 +34,7 @@ public class RssFeedWidgetProvider extends AppWidgetProvider {
             String url = intent.getStringExtra(EXTRA_URL);
             DataFactory.getIntentUtil().openUrl(context, url);
         } else if (ACTION_SYNC.equals(intent.getAction())) {
-            // sync
+            DataFactory.getRssWidgetUpdateTask(context).execute();
         } else if (ACTION_SETTINGS.equals(intent.getAction())) {
             // settings
         }
@@ -41,10 +42,16 @@ public class RssFeedWidgetProvider extends AppWidgetProvider {
     }
 
     @Override
+    public void onEnabled(Context context) {
+        super.onEnabled(context);
+        Log.e(TAG, "onEnabled");
+        DatabaseHelperFactory.setHelper(context);
+    }
+
+    @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         Log.e(TAG, "onUpdate");
-        PreferenceHelper prefHelper = DataFactory.getPreferenceHelper(context);
-        String rssTitle = prefHelper.getRssTitle();
+        RssFeedRepository rssFeedRepository = DataFactory.getRssFeedRepository(context);
         for (int widgetId : appWidgetIds) {
             RemoteViews views = initRemoteViews(context, widgetId);
 
@@ -52,11 +59,19 @@ public class RssFeedWidgetProvider extends AppWidgetProvider {
             views.setOnClickPendingIntent(R.id.iv_settings, getPendingSelfIntent(context, ACTION_SETTINGS));
             views.setOnClickPendingIntent(R.id.iv_sync, getPendingSelfIntent(context, ACTION_SYNC));
 
-            views.setTextViewText(R.id.tv_rss_title, rssTitle);
+            views.setEmptyView(R.id.lv_rss_feed, R.id.tv_empty_here);
+            views.setTextViewText(R.id.tv_rss_title, rssFeedRepository.getRssTitle());
 
             appWidgetManager.updateAppWidget(widgetId, views);
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
+    }
+
+    @Override
+    public void onDeleted(Context context, int[] appWidgetIds) {
+        super.onDeleted(context, appWidgetIds);
+        Log.e(TAG, "onDeleted");
+        DatabaseHelperFactory.releaseHelper();
     }
 
     protected PendingIntent getPendingSelfIntent(Context context, String action) {
@@ -66,7 +81,7 @@ public class RssFeedWidgetProvider extends AppWidgetProvider {
     }
 
     private RemoteViews initRemoteViews(Context context, int widgetId) {
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_rss_feed_layout);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_rss_feed);
         Intent intent = new Intent(context, RssFeedWidgetService.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
         intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));

@@ -1,4 +1,4 @@
-package zhukovme.rsswidget.data.sax;
+package zhukovme.rsswidget.sax;
 
 import org.junit.After;
 import org.junit.Assert;

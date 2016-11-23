@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/ll_bottom_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/iv_apply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_check_white_24dp"
+            android:background="@android:color/transparent"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/default_margin"/>
+
+        <ImageButton
+            android:id="@+id/iv_sync"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_sync_white_24dp"
+            android:background="@android:color/transparent"
+            android:layout_toLeftOf="@id/iv_apply"
+            android:layout_toStartOf="@id/iv_apply"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/default_margin"/>
+
+        <TextView
+            android:id="@+id/tv_rss_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="RSS Name RSS Name RSS Name RSS Name "
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_toLeftOf="@id/iv_sync"
+            android:layout_toStartOf="@id/iv_sync"
+            android:layout_margin="@dimen/small_margin"
+            style="@style/Base.TextAppearance.AppCompat.Medium"/>
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/et_rss_url"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/et_hint_rss_url"
+        android:inputType="textUri"
+        />
+
+</LinearLayout>

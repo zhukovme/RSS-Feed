@@ -1,16 +1,23 @@
 package zhukovme.rsswidget.data;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
+import android.widget.RemoteViews;
 
-import zhukovme.rsswidget.data.sax.RssSaxParser;
+import zhukovme.rsswidget.R;
+import zhukovme.rsswidget.data.database.DatabaseHelperFactory;
+import zhukovme.rsswidget.data.database.PreferenceHelper;
+import zhukovme.rsswidget.sax.RssSaxParser;
 import zhukovme.rsswidget.util.IntentUtil;
 import zhukovme.rsswidget.util.StringUtil;
 import zhukovme.rsswidget.util.TimeUtil;
+import zhukovme.rsswidget.widget.RssFeedWidgetProvider;
+import zhukovme.rsswidget.widget.RssWidgetUpdateTask;
 
 /**
  * Created by Michael Zhukov on 20/11/2016
  */
-
 public class DataFactory {
 
     public static StringUtil getStringUtil() {
@@ -33,7 +40,16 @@ public class DataFactory {
         return new PreferenceHelper(context);
     }
 
-    public static DataManager getDataManager(Context context) {
-        return new DataManager(getRssSaxParser(), getPreferenceHelper(context));
+    public static RssFeedRepository getRssFeedRepository(Context context) {
+        return new RssFeedRepository(getPreferenceHelper(context), DatabaseHelperFactory.getHelper());
+    }
+
+    public static RssWidgetUpdateTask getRssWidgetUpdateTask(Context context) {
+        AppWidgetManager manager = AppWidgetManager.getInstance(context);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_rss_feed);
+        ComponentName widget = new ComponentName(context, RssFeedWidgetProvider.class);
+        RssSaxParser parser = getRssSaxParser();
+        RssFeedRepository rssFeedRepository = getRssFeedRepository(context);
+        return new RssWidgetUpdateTask(manager, views, widget, parser, rssFeedRepository);
     }
 }

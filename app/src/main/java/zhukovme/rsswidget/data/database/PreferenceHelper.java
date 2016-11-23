@@ -1,4 +1,4 @@
-package zhukovme.rsswidget.data;
+package zhukovme.rsswidget.data.database;
 
 import android.content.Context;
 import android.content.SharedPreferences;

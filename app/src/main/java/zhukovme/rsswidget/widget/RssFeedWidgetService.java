@@ -1,10 +1,10 @@
-package zhukovme.rsswidget.ui.widget;
+package zhukovme.rsswidget.widget;
 
 import android.content.Intent;
 import android.widget.RemoteViewsService;
 
 import zhukovme.rsswidget.data.DataFactory;
-import zhukovme.rsswidget.data.DataManager;
+import zhukovme.rsswidget.data.RssFeedRepository;
 import zhukovme.rsswidget.util.StringUtil;
 import zhukovme.rsswidget.util.TimeUtil;
 
@@ -15,9 +15,9 @@ public class RssFeedWidgetService extends RemoteViewsService {
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
-        DataManager dataManager = DataFactory.getDataManager(getApplicationContext());
         TimeUtil timeUtil = DataFactory.getTimeUtil();
         StringUtil stringUtil = DataFactory.getStringUtil();
-        return new RssFeedWidgetDataProvider(getApplicationContext(), intent, dataManager, timeUtil, stringUtil);
+        RssFeedRepository rssFeedRepository = DataFactory.getRssFeedRepository(getApplicationContext());
+        return new RssFeedWidgetDataProvider(getApplicationContext(), intent, rssFeedRepository, timeUtil, stringUtil);
     }
 }

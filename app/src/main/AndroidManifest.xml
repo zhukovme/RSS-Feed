@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Default">
 
-        <receiver android:name=".ui.widget.RssFeedWidgetProvider">
+        <receiver android:name=".widget.RssFeedWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
@@ -21,8 +21,12 @@
         </receiver>
 
         <service
-            android:name=".ui.widget.RssFeedWidgetService"
+            android:name=".widget.RssFeedWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <service
+            android:name=".widget.RssWidgetUpdateService"
+            android:enabled="true"/>
 
     </application>
 
